@@ -6,7 +6,7 @@
 
   <body>
 
-    <div id="score">0</div>
+    <div id="steps">0</div>
     <canvas id="snakeboard" width="400" height="400"></canvas>
 
     <style>
@@ -16,9 +16,8 @@
         left: 50%;
         transform: translate(-50%, -50%);
       }
-      #score {
-        text-align: center;
-        font-size: 140px;
+      #steps {
+        font-size: 28px;
       }
     </style>
   </body>
@@ -37,7 +36,7 @@
       {x: 160, y: 200}
     ]
 
-    let score = 0;
+    let steps = 0;
     // True if changing direction
     let changing_direction = false;
     // Horizontal velocity
@@ -181,16 +180,19 @@
       snake.unshift(head);
       const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
       if (has_eaten_food) {
-        // Increase score
-        score += 10;
-        // Display score on screen
-        document.getElementById('score').innerHTML = score;
-        // Generate new food location
-        gen_food();
+        // // Increase score
+        // score += 10;
+        // // Display score on screen
+        // document.getElementById('score').innerHTML = score;
+        // // Generate new food location
+        // gen_food();
       } else {
         // Remove the last part of snake body
         snake.pop();
       }
+      
+      steps += 1;
+      document.getElementById('steps').innerHTML = steps;
     }
     
   </script>
