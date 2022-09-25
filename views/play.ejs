@@ -13,15 +13,166 @@
         <div class="welcome" id="player"><%= player_id %></div>
     </div>
 
+    <div id="steps">0</div>
+    <canvas id="snakeboard" width="400" height="400"></canvas>
+
+    <style>
+      #snakeboard {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      #steps {
+        font-size: 28px;
+      }
+    </style>
+
     
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    var socket = io();
+    let socket = io();
+
+    let end = false;
+    let dx = 0; dy = -10;
+    let interval = 300;
     
     document.addEventListener("keydown", function(e){
         e.preventDefault();
-        socket.emit('chat message', { player_id: document.getElementById("player").innerHTML, key_val: e.keyCode});
+        ascii = e.keyCode;
     });
+
+    socket.on('start game', function(msg) { // receive
+        console.log("CLIENT] start game");
+        setInterval(() => {
+            if (end) return;
+            changing_direction = false;
+            console.log("CLIENT] send move");
+            socket.emit('send move', { // send
+                id: document.getElementById("player").innerHTML, 
+                dx: dx,
+                dy: dy
+            });
+        }, interval);
+    });
+
+    socket.on('get board', function(msg) { // receive
+        console.log("CLIENT] get board");
+        document.getElementById('steps').innerHTML = msg.steps;
+        end = msg.end;
+        clear_board();
+        drawSnake(msg.player1);
+        drawSnake(msg.player2);
+    });
+
+    // ==========
+
+    // 3) CSS snake variables [client]
+    const board_border = 'black';
+    const board_background = "white";
+    const snake_border = 'black';
+    const snake1_col = 'lightblue';
+    const snake2_col = 'red';
+
+    // 4) canvas variables [canvas]
+    const snakeboard = document.getElementById("snakeboard"); // Get the canvas element
+    const snakeboard_ctx = snakeboard.getContext("2d"); // Return a two dimensional drawing context
+
+    // 5) event function [canvas]
+    let changing_direction = false; // True if changing direction
+    document.addEventListener("keydown", change_direction);
+
+    // Non-canvas [STAY in client]
+    function change_direction(event) {
+      const LEFT_KEY = 37;
+      const RIGHT_KEY = 39;
+      const UP_KEY = 38;
+      const DOWN_KEY = 40;
+      
+    // Prevent the snake from reversing
+    
+      if (changing_direction) return;
+      changing_direction = true;
+      const keyPressed = event.keyCode;
+      const goingUp = dy === -10;
+      const goingDown = dy === 10;
+      const goingRight = dx === 10;
+      const goingLeft = dx === -10;
+      if (keyPressed === LEFT_KEY && !goingRight) {
+        dx = -10; dy = 0;
+      }
+      if (keyPressed === UP_KEY && !goingDown) {
+        dx = 0; dy = -10;
+      }
+      if (keyPressed === RIGHT_KEY && !goingLeft) {
+        dx = 10; dy = 0;
+      }
+      if (keyPressed === DOWN_KEY && !goingUp) {
+        dx = 0; dy = 10;
+      }
+    }
+    
+    // 3] Canvas [STAY in client]
+    function clear_board() {
+      // draw a border around the canvas
+
+      //  Select the colour to fill the drawing
+      snakeboard_ctx.fillStyle = board_background;
+      //  Select the colour for the border of the canvas
+      snakeboard_ctx.strokestyle = board_border;
+      // Draw a "filled" rectangle to cover the entire canvas
+      snakeboard_ctx.fillRect(0, 0, snakeboard.width, snakeboard.height);
+      // Draw a "border" around the entire canvas
+      snakeboard_ctx.strokeRect(0, 0, snakeboard.width, snakeboard.height);
+    }
+    
+    // Non-canvas but uses canvas [GET from server, STAY in client]
+    function drawSnake(snake) {
+      // Draw the snake on the canvas
+      
+      // Draw each part
+      snake.forEach(drawSnakePart)
+    }
+
+    // Canvas [STAY in client]
+    function drawSnakePart(snakePart) {
+      // Draw one snake part
+
+      // Set the colour of the snake part
+      snakeboard_ctx.fillStyle = snake1_col;
+      // Set the border colour of the snake part
+      snakeboard_ctx.strokestyle = snake_border;
+      // Draw a "filled" rectangle to represent the snake part at the coordinates
+      // the part is located
+      snakeboard_ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
+      // Draw a border around the snake part
+      snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+    }
+
+    // Non-canvas but uses canvas [GET from server, STAY in client]
+    function drawSnake(snake) {
+      // Draw the snake on the canvas
+      
+      // Draw each part
+      snake.forEach(drawSnakePart)
+    }
+
+    // Canvas [STAY in client]
+    function drawSnakePart(snakePart) {
+      // Draw one snake part
+
+      // Set the colour of the snake part
+      snakeboard_ctx.fillStyle = snake1_col;
+      // Set the border colour of the snake part
+      snakeboard_ctx.strokestyle = snake_border;
+      // Draw a "filled" rectangle to represent the snake part at the coordinates
+      // the part is located
+      snakeboard_ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
+      // Draw a border around the snake part
+      snakeboard_ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
+    }
+
+
 </script>
 </html>

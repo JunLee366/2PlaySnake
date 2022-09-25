@@ -23,7 +23,7 @@
   </body>
 
   <script>
-    // 1) game variables
+    // 1) game variables [server]
     let steps = 0;
     let celing_step = 10;
     let increase_step = 10;
@@ -31,16 +31,8 @@
     let boardWidth = 400;
     let boardHeight = 400;
 
-    let changing_direction = false; // True if changing direction
-
-    // 2) snake variables
-    // default snake variables
-    const board_border = 'black';
-    const board_background = "white";
-    const snake_border = 'black';
-
+    // 2) snake values [server]
     // player 1 variables [passed from the server to player 1]
-    const snake_col = 'lightblue';
     let snake = [
       {x: 100, y: 200},
       {x: 90, y: 200},
@@ -51,7 +43,6 @@
     let dx = 10, dy = 0; // Horizontal/Vertical velocity
 
     // player 2 variables [passed from the server to player 2]
-    // const snake_col = 'red';
     // let snake = [
     //   {x: 300, y: 200},
     //   {x: 310, y: 200},
@@ -61,27 +52,36 @@
     // ]
     // let dx = -10, dy = 0; // Horizontal/Vertical velocity
 
-    // 3) canvas variables
+    // 3) CSS snake variables [client]
+    const board_border = 'black';
+    const board_background = "white";
+    const snake_border = 'black';
+    const snake1_col = 'lightblue';
+    const snake2_col = 'red';
+
+    // 4) canvas variables [canvas]
     const snakeboard = document.getElementById("snakeboard"); // Get the canvas element
     const snakeboard_ctx = snakeboard.getContext("2d"); // Return a two dimensional drawing context
+
+    // 5) event function [canvas]
+    let changing_direction = false; // True if changing direction
+    document.addEventListener("keydown", change_direction);
+    
 
 // FIGURE OUT WHAT BELONG IN THE BACKEND
 // FROM HERE
 
     main(); // Start game
-
-    document.addEventListener("keydown", change_direction);
     
     // main function called repeatedly to keep the game running
     function main() {
-        if (has_game_ended()) return;
+      if (has_game_ended()) return;
 
-        changing_direction = false;
-        setTimeout(function onTick() {
-          clear_board();
-          move_snake();
-          drawSnake();
-        // Repeat
+      changing_direction = false;
+      setTimeout(function onTick() {
+        clear_board();
+        move_snake(); // server
+        drawSnake();
         main();
       }, 100)
     }

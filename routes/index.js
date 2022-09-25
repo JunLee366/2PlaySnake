@@ -21,8 +21,8 @@ router.post('/', function(req, res, next) {
   }
 })
 
-router.get('/play', function(req, res, next) {
+// router.get('/play', function(req, res, next) {
   
-})
+// })
 
 module.exports = router;
