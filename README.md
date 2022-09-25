@@ -15,8 +15,8 @@
 ### A] Lobby page
 1. On server startup, the server waits for 2 players to join the game
 2. When a user arrives to the Lobby page, they are presented with a button that represents what player they are
-a. When the 1st user comes in, the button will be labeled "player1"
-b. Once 1st user clicks on the button and 2nd user comes in, the button will be labeled "player2"
+* When the 1st user comes in, the button will be labeled "player1"
+* Once 1st user clicks on the button and 2nd user comes in, the button will be labeled "player2"
 3. After 2 players clicked buttons, 3rd player and above will be blocked access because player limit is reached
 
 ### B] Game page
