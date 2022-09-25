@@ -5,7 +5,6 @@ const http = require('http');
 var socketio = require('socket.io');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 var server = http.createServer(app);
@@ -23,7 +22,6 @@ var port = process.env.PORT || '3000';
 server.listen(port);
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,6 +37,17 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+  socket.on('chat message', (msg) => {
+    console.log('player_id: ' + msg.player_id);
+    console.log('keypress: ' + msg.key_val);
+  });
 });
 
 module.exports = app;

@@ -15,9 +15,13 @@
 
     
 </body>
-
+<script src="/socket.io/socket.io.js"></script>
 <script>
-    let id = document.getElementById("player").innerHTML; 
-    console.log("PLAYER VALUE", id);
+    var socket = io();
+    
+    document.addEventListener("keydown", function(e){
+        e.preventDefault();
+        socket.emit('chat message', { player_id: document.getElementById("player").innerHTML, key_val: e.keyCode});
+    });
 </script>
 </html>
