@@ -5,12 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css"">
 </head>
 <body>
-    <%= player_id %>
+    <div>
+        <div class="welcome">Welcome Player</div>
+        <div class="welcome" id="player"><%= player_id %></div>
+    </div>
+
+    
 </body>
 
 <script>
-
+    let id = document.getElementById("player").innerHTML; 
+    console.log("PLAYER VALUE", id);
 </script>
 </html>
