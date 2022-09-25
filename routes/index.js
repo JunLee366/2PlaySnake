@@ -6,7 +6,6 @@ let players = 0;
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
-      title: 'Express', 
       id: players + 1
   });
 });
@@ -22,7 +21,7 @@ router.post('/', function(req, res, next) {
   }
 })
 
-router.post('/play', function(req, res, next) {
+router.get('/play', function(req, res, next) {
   
 })
 
