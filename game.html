@@ -65,8 +65,8 @@
     const snakeboard = document.getElementById("snakeboard"); // Get the canvas element
     const snakeboard_ctx = snakeboard.getContext("2d"); // Return a two dimensional drawing context
 
-    // FIGURE OUT WHAT BELONG IN THE BACKEND
-    // FROM HERE
+// FIGURE OUT WHAT BELONG IN THE BACKEND
+// FROM HERE
 
     main(); // Start game
 
@@ -86,10 +86,10 @@
       }, 100)
     }
 
-    // TO HERE
-    // FROM HERE IT GOR FIGURED OUT
+// TO HERE
+// FROM HERE IT GOR FIGURED OUT
 
-    // Non-canvas [stay in client]
+    // Non-canvas [STAY in client]
     function change_direction(event) {
       const LEFT_KEY = 37;
       const RIGHT_KEY = 39;
@@ -119,7 +119,7 @@
       }
     }
     
-    // Non-canvas [put in server]
+    // Non-canvas [PUT in server]
     function has_game_ended() {
       // if snake eats itself
       for (let i = 4; i < snake.length; i++) {
@@ -135,7 +135,7 @@
     }
 
     // A]
-    // 3] Canvas [stay in client]
+    // 3] Canvas [STAY in client]
     function clear_board() {
       // draw a border around the canvas
 
@@ -150,7 +150,7 @@
     }
     
     // B] Move to server
-    // Non-canvas [put in server]
+    // Non-canvas [PUT in server]
     function move_snake() {
       // Create the new Snake's head
       const head = {x: snake[0].x + dx, y: snake[0].y + dy};
@@ -168,8 +168,8 @@
       document.getElementById('steps').innerHTML = steps;
     }
 
-    // C1] Get from server
-    // Non-canvas but uses canvas [stay in client]
+    // C1] 
+    // Non-canvas but uses canvas [GET from server, STAY in client]
     function drawSnake() {
       // Draw the snake on the canvas
 
@@ -178,7 +178,7 @@
     }
 
     // C2]
-    // Canvas [stay in client]
+    // Canvas [STAY in client]
     function drawSnakePart(snakePart) {
       // Draw one snake part
 
