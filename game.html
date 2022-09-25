@@ -23,18 +23,7 @@
   </body>
 
   <script>
-    const player_id = 1;
-    const board_border = 'black';
-    const board_background = "white";
-    const snake_border = 'black';
-
-    // player 1
-    const snake_col = 'lightblue';
-
-    // player 2
-    // const snake_col = 'red';
-    
-    // set game variables
+    // 1) game variables
     let steps = 0;
     let celing_step = 10;
     let increase_step = 10;
@@ -42,21 +31,42 @@
     let boardWidth = 400;
     let boardHeight = 400;
 
-    // snake variables
-    let snake = [
-      {x: 200, y: 200},
-      {x: 190, y: 200},
-      {x: 180, y: 200},
-      {x: 170, y: 200},
-      {x: 160, y: 200}
-    ]
-
     let changing_direction = false; // True if changing direction
-    let food_x, food_y;
+
+    // 2) snake variables
+    // default snake variables
+    const board_border = 'black';
+    const board_background = "white";
+    const snake_border = 'black';
+
+    // player 1 variables [passed from the server to player 1]
+    const snake_col = 'lightblue';
+    let snake = [
+      {x: 100, y: 200},
+      {x: 90, y: 200},
+      {x: 80, y: 200},
+      {x: 70, y: 200},
+      {x: 60, y: 200}
+    ]
     let dx = 10, dy = 0; // Horizontal/Vertical velocity
-    
+
+    // player 2 variables [passed from the server to player 2]
+    // const snake_col = 'red';
+    // let snake = [
+    //   {x: 300, y: 200},
+    //   {x: 310, y: 200},
+    //   {x: 320, y: 200},
+    //   {x: 330, y: 200},
+    //   {x: 340, y: 200}
+    // ]
+    // let dx = -10, dy = 0; // Horizontal/Vertical velocity
+
+    // 3) canvas variables
     const snakeboard = document.getElementById("snakeboard"); // Get the canvas element
     const snakeboard_ctx = snakeboard.getContext("2d"); // Return a two dimensional drawing context
+
+    // FIGURE OUT WHAT BELONG IN THE BACKEND
+    // FROM HERE
 
     main(); // Start game
 
@@ -76,7 +86,10 @@
       }, 100)
     }
 
-    // Non-canvas [but stays here]
+    // TO HERE
+    // FROM HERE IT GOR FIGURED OUT
+
+    // Non-canvas [stay in client]
     function change_direction(event) {
       const LEFT_KEY = 37;
       const RIGHT_KEY = 39;
@@ -106,7 +119,7 @@
       }
     }
     
-    // Non-canvas
+    // Non-canvas [put in server]
     function has_game_ended() {
       // if snake eats itself
       for (let i = 4; i < snake.length; i++) {
@@ -122,7 +135,7 @@
     }
 
     // A]
-    // Canvas
+    // 3] Canvas [stay in client]
     function clear_board() {
       // draw a border around the canvas
 
@@ -137,13 +150,12 @@
     }
     
     // B] Move to server
-    // Non-canvas
+    // Non-canvas [put in server]
     function move_snake() {
       // Create the new Snake's head
       const head = {x: snake[0].x + dx, y: snake[0].y + dy};
       // Add the new head to the beginning of snake body
       snake.unshift(head);
-      const has_eaten_food = snake[0].x === food_x && snake[0].y === food_y;
       if (steps > celing_step) {
         // increment celing
         celing_step += increase_step;
@@ -157,7 +169,7 @@
     }
 
     // C1] Get from server
-    // Non-canvas but uses canvas
+    // Non-canvas but uses canvas [stay in client]
     function drawSnake() {
       // Draw the snake on the canvas
 
@@ -166,7 +178,7 @@
     }
 
     // C2]
-    // Canvas
+    // Canvas [stay in client]
     function drawSnakePart(snakePart) {
       // Draw one snake part
 
