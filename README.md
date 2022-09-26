@@ -9,7 +9,7 @@
 * Socket.io
 
 ## What is 2PlayerSnake
-2PlayerSnake is a web application that allows 2 players to play against each other
+2PlaySnake is a web application that allows 2 players to play against each other
 
 ## How does it work?
 ### A] Lobby page
@@ -27,7 +27,7 @@ see the opponent snake. The server keeps track of user input and updates informa
 3. As the game progresses, the snakes gradually move faster and grow in size. This keeps going until one of the snakes bite another snake or bumps into a wall
 
 ## Getting Started
-0. Node and npm should already be installed [nodemon is optional]
-1. npm install at the top level of directory
-2. npm run start to execute program
-3. Test functionality of multiplayer by opening multiple browser and connecting to localhost:3000
+1. Node and npm should already be installed [nodemon is optional]
+2. npm install at the top level of directory
+3. npm run start to execute program
+4. Test functionality of multiplayer by opening multiple browser and connecting to localhost:3000
