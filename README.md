@@ -1,4 +1,4 @@
-# 2PlayerSnake
+# 2PlaySnake
 
 ### Team Members (2): Jun Ho Lee, David Wang
 
@@ -8,7 +8,7 @@
 * EJS
 * Socket.io
 
-## What is 2PlayerSnake
+## What is 2PlaySnake
 2PlaySnake is a web application that allows 2 players to play against each other
 
 ## How does it work?
