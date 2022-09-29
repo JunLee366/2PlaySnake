@@ -1,6 +1,7 @@
 # 2PlaySnake
 
 ### Team Members (2): Jun Ho Lee, David Wang
+### Devpost link: https://devpost.com/software/two-player-snake-game
 
 ## Program and Libraries used
 * Node.js
